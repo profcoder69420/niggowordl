@@ -1,2 +1,2 @@
 # hellowordl
-modded from: https://hellowordl.net/
+originated from: https://hellowordl.net/
