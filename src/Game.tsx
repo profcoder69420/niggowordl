@@ -4,7 +4,6 @@ import dictionary from "./dictionary.json";
 import { Clue, clue, describeClue, violation } from "./clue";
 import { Keyboard } from "./Keyboard";
 import targetList from "./targets.json";
-import App from "./App"
 import {
   describeSeed,
   dictionarySet,
@@ -134,33 +133,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
     setGameState(GameState.Playing);
     setGameNumber((x) => x + 1);
   };
-
-  async function share(copiedHint: string, text?: string) {
-    const url = seed
-      ? window.location.origin + window.location.pathname + currentSeedParams()
-      : getChallengeUrl(target);
-    const body = url + (text ? "\n\n" + text : "");
-    if (
-      /android|iphone|ipad|ipod|webos/i.test(navigator.userAgent) &&
-      !/firefox/i.test(navigator.userAgent)
-    ) {
-      try {
-        await navigator.share({ text: body });
-        return;
-      } catch (e) {
-        console.warn("navigator.share failed:", e);
-      }
-    }
-    try {
-      await navigator.clipboard.writeText(body);
-      setHint(copiedHint);
-      return;
-    } catch (e) {
-      console.warn("navigator.clipboard.writeText failed:", e);
-    }
-    setHint(url);
-  }
-
+  
   const onKey = (key: string) => {
     if (gameState !== GameState.Playing) {
       if (key === "Enter") {
