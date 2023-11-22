@@ -50,15 +50,6 @@ function randomTarget(wordLength: number): string {
   return candidate;
 }
 
-function getChallengeUrl(target: string): string {
-  return (
-    window.location.origin +
-    window.location.pathname +
-    "?challenge=" +
-    encode(target)
-  );
-}
-
 let initChallenge = "";
 let challengeError = false;
 try {
@@ -116,7 +107,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
         window.location.pathname + currentSeedParams()
       );
     }
-  }, [wordLength, gameNumber]);
+  }, [wordLength, gameNumber, currentSeedParams]);
   const tableRef = useRef<HTMLTableElement>(null);
   const startNextGame = () => {
     if (challenge) {
@@ -212,7 +203,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [currentGuess, gameState, noKeyGrab]);
+  }, [currentGuess, gameState, noKeyGrab, onKey]);
 
   let letterInfo = new Map<string, Clue>();
   const tableRows = Array(maxGuesses)
