@@ -97,7 +97,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
       ? `Invalid challenge string, playing random game.`
       : `Make your first guess!`
   );
-  const currentSeedParams = () =>
+  const currentSeedParams useCallback(() =>
     `?seed=${seed}&length=${wordLength}&game=${gameNumber}`;
   useEffect(() => {
     if (seed) {
@@ -107,7 +107,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
         window.location.pathname + currentSeedParams()
       );
     }
-  }, [wordLength, gameNumber, currentSeedParams]);
+  }, [wordLength, gameNumber,]);
   const tableRef = useRef<HTMLTableElement>(null);
   const startNextGame = () => {
     if (challenge) {
@@ -125,7 +125,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
     setGameNumber((x) => x + 1);
   };
   
-  const onKey = (key: string) => {
+  const onKey = useCallback((key: string) => {
     if (gameState !== GameState.Playing) {
       if (key === "Enter") {
         startNextGame();
