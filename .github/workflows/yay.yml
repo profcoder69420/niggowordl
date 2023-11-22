@@ -39,4 +39,4 @@ jobs:
 
       - name: Trigger GitHub Pages rebuild
         run: |
-          curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/$GITHUB_REPOSITORY/pages/builds
+          curl -X POST -H "Authorization: token ${{ secrets.BO_MAY_BEO_ME_MAY_GAY_KO_AI_HOI }}" https://api.github.com/repos/$GITHUB_REPOSITORY/pages/builds
