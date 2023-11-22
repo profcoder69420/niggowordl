@@ -1,5 +1,5 @@
 import "./App.css";
-import { gameName, maxGuesses, seed, urlParam } from "./util";
+import { maxGuesses, seed, urlParam } from "./util";
 import Game from "./Game";
 import { useEffect, useState } from "react";
 import { About } from "./About";
@@ -35,9 +35,9 @@ const todaySeed =
 
 function App() {
   type Page = "game" | "about" | "settings";
-  type Theme = "dark" | "light" | "custom";
+  // type Theme = "dark" | "light";
   const [page, setPage] = useState<Page>("game");
-  const [theme, setTheme] = useState<string>("dark");
+  // const [theme, setTheme] = useState<string>("dark");
   const prefersDark =
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -151,7 +151,6 @@ function App() {
               >
             <option value="dark">Dark</option>
             <option value="light">Light</option>
-            <option value="custom">Custom</option>
             </select>
           </div>
           <div className="Settings-setting">
@@ -260,7 +259,7 @@ function App() {
         )}
         winStreak={winStreak}
         updateWinStreak={updateWinStreak}
-        noKeyGrab={page == "settings"}
+        noKeyGrab={page === "settings"}
       />
     </div>
   );
