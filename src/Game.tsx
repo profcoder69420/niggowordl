@@ -184,8 +184,8 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
         speak(describeClue(clue(currentGuess, target)));
       }
     }
-  }
-};
+  };
+  
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (!e.ctrlKey && !e.metaKey) {
