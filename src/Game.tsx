@@ -15,7 +15,7 @@ import {
   speak,
   urlParam,
 } from "./util";
-import decode from "./base64";
+import { decode } from "./base64";
 
 enum GameState {
   Playing,
