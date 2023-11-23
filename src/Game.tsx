@@ -112,7 +112,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
   }, [wordLength, gameNumber, currentSeedParams]);
   const tableRef = useRef<HTMLTableElement>(null);
   
-  const startNextGame = () => {
+  const startNextGame = useCallback(() => {
     if (challenge) {
       // Clear the URL parameters:
       window.history.replaceState({}, document.title, window.location.pathname);
@@ -126,7 +126,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
     setCurrentGuess("");
     setGameState(GameState.Playing);
     setGameNumber((x) => x + 1);
-  };
+  }, [challenge, wordLength, target, hint, guesses, currentGuess, gameState, gameNumber]);
   
   const onKey = useCallback((key: string) => {
     if (gameState !== GameState.Playing) {
