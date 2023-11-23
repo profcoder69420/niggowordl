@@ -16,16 +16,16 @@ jobs:
         with:
           node-version: '14'
 
+      - name: Identification
+        run: |
+          git config user.email "${{ secrets.NO_ONE_KNOWS }}"
+          git config user.name "profcoder69420"
+
       - name: Install and Build
         run: |
           npm update
           npm install
           npm run deploy
-          
-      - name: Identification
-        run: |
-          git config user.email "${{ secrets.no_one_knows_lol }}"
-          git config user.name "profcoder69420"
 
       - name: Trigger GitHub Pages rebuild
         run: |
