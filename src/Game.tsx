@@ -126,7 +126,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
     setCurrentGuess("");
     setGameState(GameState.Playing);
     setGameNumber((x) => x + 1);
-  }, [challenge, wordLength, target, hint, guesses, currentGuess, gameState, gameNumber]);
+  }, [challenge, wordLength]);
   
   const onKey = useCallback((key: string) => {
     if (gameState !== GameState.Playing) {
