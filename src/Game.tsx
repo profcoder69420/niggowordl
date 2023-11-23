@@ -76,7 +76,7 @@ function parseUrlGameNumber(): number {
   return gameNumber >= 1 && gameNumber <= 1000 ? gameNumber : 1;
 }
 
-function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden, difficulty, colorBlind, keyboardLayout, noKeyGrab }: GameProps) {
+function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty, colorBlind, keyboardLayout, noKeyGrab }: GameProps) {
   const [currentwinStreak, setCurrentWinStreak] = useState(0);
   const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState<string[]>([]);
@@ -134,7 +134,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
       }
       return;
     }
-    if (guesses.length === maxGuesses) return;
+    if (guesses.length === props.maxGuesses) return;
     if (/^[a-z]$/i.test(key)) {
       setCurrentGuess((guess) =>
         (guess + key.toLowerCase()).slice(0, wordLength)
@@ -175,7 +175,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
         updateWinStreak(true);
         setCurrentWinStreak(currentwinStreak + 1);
 
-      } else if (guesses.length + 1 === maxGuesses) {
+      } else if (guesses.length + 1 === props.maxGuesses) {
         setHint(gameOver("lost"));
         setGameState(GameState.Lost);
         setCurrentWinStreak(currentwinStreak * 0);
@@ -208,7 +208,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
   }, [currentGuess, gameState, noKeyGrab, onKey]);
 
   let letterInfo = new Map<string, Clue>();
-  const tableRows = Array(maxGuesses)
+  const tableRows = Array(props.maxGuesses)
     .fill(undefined)
     .map((_, i) => {
       const guess = [...guesses, currentGuess][i] ?? "";
