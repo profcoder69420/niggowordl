@@ -97,7 +97,10 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
       ? `Invalid challenge string, playing random game.`
       : `Make your first guess!`
   );
-  const currentSeedParams = useCallback(() => {`?seed=${seed}&length=${wordLength}&game=${gameNumber}`;}, [seed, wordLength, gameNumber]);
+  const currentSeedParams = useCallback(() => {
+    return `?seed=${seed}&length=${wordLength}&game=${gameNumber}`;
+  }, [seed, wordLength, gameNumber]);
+  
   useEffect(() => {
     if (seed) {
       window.history.replaceState(
