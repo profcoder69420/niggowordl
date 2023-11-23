@@ -21,22 +21,11 @@ jobs:
           npm update
           npm install
           npm run deploy
-
-      - name: Deploy to gh-pages
-        env:
-          TARGET_FOLDER: 'build'
-          TARGET_BRANCH: 'gh-pages'
+          
+      - name: Identification
         run: |
-          git config --global user.name 'autom'
-          git config --global user.email 'profcoder69420@gmail.com'
-          git fetch
-          git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
-          git rm -rf .
-          mkdir -p $TARGET_FOLDER
-          cp -r ../$TARGET_FOLDER/* .
-          git add -A
-          git commit -m "Deploy to gh-pages"
-          git push origin $TARGET_BRANCH
+          git config user.email "${{ secrets.no_one_knows_lol }}"
+          git config user.name "profcoder69420"
 
       - name: Trigger GitHub Pages rebuild
         run: |
