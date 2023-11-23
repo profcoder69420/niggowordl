@@ -109,25 +109,25 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
         window.location.pathname + currentSeedParams()
       );
     }
-  }, [wordLength, gameNumber, seed, currentSeedParams]);
+  }, [wordLength, gameNumber, currentSeedParams]);
   const tableRef = useRef<HTMLTableElement>(null);
-  const startNextGame = () => {
-    if (challenge) {
-      // Clear the URL parameters:
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-    setChallenge("");
-    const newWordLength = limitLength(wordLength);
-    setWordLength(newWordLength);
-    setTarget(randomTarget(newWordLength));
-    setHint("");
-    setGuesses([]);
-    setCurrentGuess("");
-    setGameState(GameState.Playing);
-    setGameNumber((x) => x + 1);
-  };
   
   const onKey = useCallback((key: string) => {
+    const startNextGame = () => {
+      if (challenge) {
+        // Clear the URL parameters:
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+      setChallenge("");
+      const newWordLength = limitLength(wordLength);
+      setWordLength(newWordLength);
+      setTarget(randomTarget(newWordLength));
+      setHint("");
+      setGuesses([]);
+      setCurrentGuess("");
+      setGameState(GameState.Playing);
+      setGameNumber((x) => x + 1);
+    };
     if (gameState !== GameState.Playing) {
       if (key === "Enter") {
         startNextGame();
