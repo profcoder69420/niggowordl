@@ -15,7 +15,7 @@ import {
   speak,
   urlParam,
 } from "./util";
-import { decode, encode } from "./base64";
+import decode from "./base64";
 
 enum GameState {
   Playing,
@@ -99,7 +99,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
   );
   const currentSeedParams = useCallback(() => {
     return `?seed=${seed}&length=${wordLength}&game=${gameNumber}`;
-  }, [seed, wordLength, gameNumber]);
+  }, [wordLength, gameNumber]);
   
   useEffect(() => {
     if (seed) {
@@ -109,7 +109,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
         window.location.pathname + currentSeedParams()
       );
     }
-  }, [wordLength, gameNumber, seed]);
+  }, [wordLength, gameNumber, seed, currentSeedParams]);
   const tableRef = useRef<HTMLTableElement>(null);
   const startNextGame = () => {
     if (challenge) {
@@ -184,7 +184,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
         speak(describeClue(clue(currentGuess, target)));
       }
     }
-  }, [gameState, guesses, maxGuesses, startNextGame, target, updateWinStreak, wordLength]);
+  }, [gameState, guesses, maxGuesses, startNextGame, target, updateWinStreak, wordLength, challenge, currentGuess, currentwinStreak, difficulty]);
   
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
