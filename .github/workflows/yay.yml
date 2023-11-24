@@ -33,7 +33,3 @@ jobs:
           npm run deploy
         env:
           GH_TOKEN: ${{ secrets.BO_MAY_BEO_ME_MAY_GAY_KO_AI_HOI }}
-
-      - name: Trigger GitHub Pages rebuild
-        run: |
-          curl -X POST -H "Authorization: token ${{ secrets.BO_MAY_BEO_ME_MAY_GAY_KO_AI_HOI }}" https://api.github.com/repos/$GITHUB_REPOSITORY/pages/builds
