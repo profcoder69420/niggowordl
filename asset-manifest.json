@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/hellowordl/static/css/main.1e0d4427.css",
-    "main.js": "/hellowordl/static/js/main.c2ddc868.js",
-    "index.html": "/hellowordl/index.html",
-    "main.1e0d4427.css.map": "/hellowordl/static/css/main.1e0d4427.css.map",
-    "main.c2ddc868.js.map": "/hellowordl/static/js/main.c2ddc868.js.map"
+    "main.css": "/niggowordl/static/css/main.5e38cfc5.css",
+    "main.js": "/niggowordl/static/js/main.784ad4de.js",
+    "index.html": "/niggowordl/index.html",
+    "main.5e38cfc5.css.map": "/niggowordl/static/css/main.5e38cfc5.css.map",
+    "main.784ad4de.js.map": "/niggowordl/static/js/main.784ad4de.js.map"
   },
   "entrypoints": [
-    "static/css/main.1e0d4427.css",
-    "static/js/main.c2ddc868.js"
+    "static/css/main.5e38cfc5.css",
+    "static/js/main.784ad4de.js"
   ]
 }
