@@ -6,6 +6,7 @@ on:
 
 jobs:
   build-and-deploy:
+    if: "!contains(github.event.head_commit.message, '[no-rebuild]')"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -15,29 +16,21 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+          
+      - name: Set up SSH (why)
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
 
       - name: Install and Build
         run: |
           npm update
           npm install
+          git config user.name "profcoder69420"
+          git config user.email "126586831+profcoder69420@users.noreply.github.com"
+          git remote set-url origin git@github.com:profcoder69420/niggowordl.git
           npm run deploy
-
-      - name: Deploy to gh-pages
         env:
-          TARGET_FOLDER: 'build'
-          TARGET_BRANCH: 'gh-pages'
-        run: |
-          git config --global user.name 'autom'
-          git config --global user.email 'profcoder69420@gmail.com'
-          git fetch
-          git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
-          git rm -rf .
-          mkdir -p $TARGET_FOLDER
-          cp -r ../$TARGET_FOLDER/* .
-          git add -A
-          git commit -m "Deploy to gh-pages"
-          git push origin $TARGET_BRANCH
-
-      - name: Trigger GitHub Pages rebuild
-        run: |
-          curl -X POST -H "Authorization: token ${{ secrets.BO_MAY_BEO_ME_MAY_GAY_KO_AI_HOI }}" https://api.github.com/repos/$GITHUB_REPOSITORY/pages/builds
+          GH_TOKEN: ${{ secrets.BO_MAY_BEO_ME_MAY_GAY_KO_AI_HOI }}
