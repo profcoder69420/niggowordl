@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Row, RowState } from "./Row";
 import dictionary from "./dictionary.json";
 import { Clue, clue, describeClue, violation } from "./clue";
