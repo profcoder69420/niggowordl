@@ -50,7 +50,7 @@ function App() {
   );
   const [enterLeft, setEnterLeft] = useSetting<boolean>("enter-left", false);
   const [winStreak, setWinStreak] = useState<number>(0);
-  const [text1, settext1] = useState(localStorage.getItem('text1') || 'hell');
+  const [text1, settext1] = useState(localStorage.getItem('text1') || 'nigg');
   const [text2, settext2] = useState(localStorage.getItem('text2') || 'o wordl');
   const [backgroundImage, setBackground] = useState(localStorage.getItem('backgroundImage') || '');
   const updateWinStreak = (won: boolean) => {
