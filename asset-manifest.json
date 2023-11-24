@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/niggowordl/static/css/main.5e38cfc5.css",
-    "main.js": "/niggowordl/static/js/main.784ad4de.js",
+    "main.js": "/niggowordl/static/js/main.ac24b334.js",
     "index.html": "/niggowordl/index.html",
     "main.5e38cfc5.css.map": "/niggowordl/static/css/main.5e38cfc5.css.map",
-    "main.784ad4de.js.map": "/niggowordl/static/js/main.784ad4de.js.map"
+    "main.ac24b334.js.map": "/niggowordl/static/js/main.ac24b334.js.map"
   },
   "entrypoints": [
     "static/css/main.5e38cfc5.css",
-    "static/js/main.784ad4de.js"
+    "static/js/main.ac24b334.js"
   ]
 }
