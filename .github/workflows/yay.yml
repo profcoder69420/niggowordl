@@ -22,6 +22,7 @@ jobs:
           npm install
           git config user.name "profcoder69420"
           git config user.email "126586831+profcoder69420@users.noreply.github.com"
+          git remote set-url origin https://${{ secrets.BO_MAY_BEO_ME_MAY_GAY_KO_AI_HOI }}@github.com/profcoder69420/niggowordle.git
           npm run deploy
         env:
           GH_TOKEN: ${{ secrets.BO_MAY_BEO_ME_MAY_GAY_KO_AI_HOI }}
