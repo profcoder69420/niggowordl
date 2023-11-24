@@ -1,7 +1,7 @@
 import "./App.css";
 import { maxGuesses, seed, urlParam } from "./util";
 import Game from "./Game";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Changelog } from "./Changelog";
 import { About } from "./About";
 
