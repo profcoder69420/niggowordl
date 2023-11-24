@@ -20,8 +20,8 @@ jobs:
         run: |
           npm update
           npm install
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "profcoder69420"
+          git config user.email "126586831+profcoder69420@users.noreply.github.com"
           npm run deploy
         env:
           GH_TOKEN: ${{ secrets.BO_MAY_BEO_ME_MAY_GAY_KO_AI_HOI }}
