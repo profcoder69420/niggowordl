@@ -15,7 +15,7 @@ import {
   speak,
   urlParam,
 } from "./util";
-import { decode, encode } from "./base64";
+import { decode } from "./base64";
 
 enum GameState {
   Playing,
@@ -48,15 +48,6 @@ function randomTarget(wordLength: number): string {
     candidate = pick(eligible);
   } while (/\*/.test(candidate));
   return candidate;
-}
-
-function getChallengeUrl(target: string): string {
-  return (
-    window.location.origin +
-    window.location.pathname +
-    "?challenge=" +
-    encode(target)
-  );
 }
 
 let initChallenge = "";
@@ -106,8 +97,9 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
       ? `Invalid challenge string, playing random game.`
       : `Make your first guess!`
   );
-  const currentSeedParams = () =>
-    `?seed=${seed}&length=${wordLength}&game=${gameNumber}`;
+  const currentSeedParams = useCallback(() => {
+    return `?seed=${seed}&length=${wordLength}&game=${gameNumber}`;
+  }, [seed, wordLength, gameNumber]);
   useEffect(() => {
     if (seed) {
       window.history.replaceState(
@@ -134,7 +126,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
     setGameNumber((x) => x + 1);
   };
 
-  const onKey = (key: string) => {
+  const onKey = useCallback((key: string) => {
     if (gameState !== GameState.Playing) {
       if (key === "Enter") {
         startNextGame();
