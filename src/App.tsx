@@ -1,7 +1,8 @@
 import "./App.css";
-import { maxGuesses, seed, urlParam } from "./util";
+import { gameName, maxGuesses, seed, urlParam } from "./util";
 import Game from "./Game";
 import { useEffect, useState } from "react";
+import { Changelog } from "./Changelog";
 import { About } from "./About";
 
 function useSetting<T>(
@@ -34,10 +35,10 @@ const todaySeed =
   now.toLocaleDateString("en-US", { day: "2-digit" });
 
 function App() {
-  type Page = "game" | "about" | "settings";
-  // type Theme = "dark" | "light";
+  type Page = "game" | "about" | "settings" | "changelog";
+  type Theme = "dark" | "light" | "custom";
   const [page, setPage] = useState<Page>("game");
-  // const [theme, setTheme] = useState<string>("dark");
+  const [theme, setTheme] = useState<string>("dark");
   const prefersDark =
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -50,7 +51,7 @@ function App() {
   );
   const [enterLeft, setEnterLeft] = useSetting<boolean>("enter-left", false);
   const [winStreak, setWinStreak] = useState<number>(0);
-  const [text1, settext1] = useState(localStorage.getItem('text1') || 'nigg');
+  const [text1, settext1] = useState(localStorage.getItem('text1') || 'hell');
   const [text2, settext2] = useState(localStorage.getItem('text2') || 'o wordl');
   const [backgroundImage, setBackground] = useState(localStorage.getItem('backgroundImage') || '');
   const updateWinStreak = (won: boolean) => {
@@ -121,6 +122,7 @@ function App() {
           link("❌", "Close", "game")
         ) : (
           <>
+            {link("❣️", "Changelog", "changelog")}
             {link("❓", "About", "about")}
             {link("⚙️", "Settings", "settings")}
           </>
@@ -138,6 +140,7 @@ function App() {
           {seed ? "Random" : "Today's"}
         </a>
       </div>
+      {page === "changelog" && <Changelog />}
       {page === "about" && <About />}
       {page === "settings" && (
         <div className="Settings">
@@ -151,6 +154,7 @@ function App() {
               >
             <option value="dark">Dark</option>
             <option value="light">Light</option>
+            <option value="custom">Custom</option>
             </select>
           </div>
           <div className="Settings-setting">
@@ -259,7 +263,7 @@ function App() {
         )}
         winStreak={winStreak}
         updateWinStreak={updateWinStreak}
-        noKeyGrab={page === "settings"}
+        noKeyGrab={page == "settings"}
       />
     </div>
   );

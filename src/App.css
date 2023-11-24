@@ -286,3 +286,11 @@ a:active {
 .App-container.color-blind .App-about b.yellow-bg {
   background-color: #85c0f9;
 }
+
+.tiny {
+  font-size: 13px;
+  opacity: 0.3;
+}
+
+.App-changelog { text-align: left; }
+.App-changelog li { margin: 0.5rem; }

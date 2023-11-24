@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Row, RowState } from "./Row";
 import dictionary from "./dictionary.json";
 import { Clue, clue, describeClue, violation } from "./clue";
 import { Keyboard } from "./Keyboard";
 import targetList from "./targets.json";
+import App from "./App"
 import {
   describeSeed,
   dictionarySet,
@@ -15,7 +16,7 @@ import {
   speak,
   urlParam,
 } from "./util";
-import { decode } from "./base64";
+import { decode, encode } from "./base64";
 
 enum GameState {
   Playing,
@@ -50,6 +51,15 @@ function randomTarget(wordLength: number): string {
   return candidate;
 }
 
+function getChallengeUrl(target: string): string {
+  return (
+    window.location.origin +
+    window.location.pathname +
+    "?challenge=" +
+    encode(target)
+  );
+}
+
 let initChallenge = "";
 let challengeError = false;
 try {
@@ -76,7 +86,7 @@ function parseUrlGameNumber(): number {
   return gameNumber >= 1 && gameNumber <= 1000 ? gameNumber : 1;
 }
 
-function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty, colorBlind, keyboardLayout, noKeyGrab, maxGuesses }: GameProps) {
+function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden, difficulty, colorBlind, keyboardLayout, noKeyGrab }: GameProps) {
   const [currentwinStreak, setCurrentWinStreak] = useState(0);
   const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState<string[]>([]);
@@ -97,10 +107,8 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
       ? `Invalid challenge string, playing random game.`
       : `Make your first guess!`
   );
-  const currentSeedParams = useCallback(() => {
-    return `?seed=${seed}&length=${wordLength}&game=${gameNumber}`;
-  }, [wordLength, gameNumber]);
-  
+  const currentSeedParams = () =>
+    `?seed=${seed}&length=${wordLength}&game=${gameNumber}`;
   useEffect(() => {
     if (seed) {
       window.history.replaceState(
@@ -109,10 +117,9 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
         window.location.pathname + currentSeedParams()
       );
     }
-  }, [wordLength, gameNumber, currentSeedParams]);
+  }, [wordLength, gameNumber]);
   const tableRef = useRef<HTMLTableElement>(null);
-  
-  const startNextGame = useCallback(() => {
+  const startNextGame = () => {
     if (challenge) {
       // Clear the URL parameters:
       window.history.replaceState({}, document.title, window.location.pathname);
@@ -126,9 +133,35 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
     setCurrentGuess("");
     setGameState(GameState.Playing);
     setGameNumber((x) => x + 1);
-  }, [challenge, wordLength]);
-  
-  const onKey = useCallback((key: string) => {
+  };
+
+  async function share(copiedHint: string, text?: string) {
+    const url = seed
+      ? window.location.origin + window.location.pathname + currentSeedParams()
+      : getChallengeUrl(target);
+    const body = url + (text ? "\n\n" + text : "");
+    if (
+      /android|iphone|ipad|ipod|webos/i.test(navigator.userAgent) &&
+      !/firefox/i.test(navigator.userAgent)
+    ) {
+      try {
+        await navigator.share({ text: body });
+        return;
+      } catch (e) {
+        console.warn("navigator.share failed:", e);
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(body);
+      setHint(copiedHint);
+      return;
+    } catch (e) {
+      console.warn("navigator.clipboard.writeText failed:", e);
+    }
+    setHint(url);
+  }
+
+  const onKey = (key: string) => {
     if (gameState !== GameState.Playing) {
       if (key === "Enter") {
         startNextGame();
@@ -185,8 +218,8 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
         speak(describeClue(clue(currentGuess, target)));
       }
     }
-  }, [gameState, guesses, maxGuesses, startNextGame, target, updateWinStreak, wordLength, challenge, currentGuess, currentwinStreak, difficulty]);
-  
+  };
+
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (!e.ctrlKey && !e.metaKey) {
@@ -206,7 +239,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [currentGuess, gameState, noKeyGrab, onKey]);
+  }, [currentGuess, gameState, noKeyGrab]);
 
   let letterInfo = new Map<string, Clue>();
   const tableRows = Array(maxGuesses)
@@ -313,7 +346,8 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, hidden, difficulty
       <div className="extras">
           <p>Game #{gameNumber} (session)</p>
           <p>Win streak: {currentwinStreak}</p>
-          <p>{gameName} mod v1.0.4</p>
+          <p><a href="https://github.com/profcoder69420/niggowordl">{gameName} mod v1.0.4</a> | forked from <a href="https://hellowordl.net">hello wordl</a> by <a href="https://twitter.com/chordbug">Lynn / @chordbug</a></p>
+          <p>made by <a href="https://github.com/profcoder69420">profcoder69420 on GitHub</a></p>
       </div>  
     </div>
   );
