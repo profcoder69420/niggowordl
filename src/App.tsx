@@ -2,6 +2,7 @@ import "./App.css";
 import { gameName, maxGuesses, seed, urlParam } from "./util";
 import Game from "./Game";
 import { useEffect, useState } from "react";
+import { Changelog } from "./Changelog";
 import { About } from "./About";
 
 function useSetting<T>(
@@ -34,7 +35,7 @@ const todaySeed =
   now.toLocaleDateString("en-US", { day: "2-digit" });
 
 function App() {
-  type Page = "game" | "about" | "settings";
+  type Page = "game" | "about" | "settings" | "changelog";
   type Theme = "dark" | "light" | "custom";
   const [page, setPage] = useState<Page>("game");
   const [theme, setTheme] = useState<string>("dark");
@@ -121,6 +122,7 @@ function App() {
           link("❌", "Close", "game")
         ) : (
           <>
+            {link("❣️", "Changelog", "changelog")}
             {link("❓", "About", "about")}
             {link("⚙️", "Settings", "settings")}
           </>
@@ -138,6 +140,7 @@ function App() {
           {seed ? "Random" : "Today's"}
         </a>
       </div>
+      {page === "changelog" && <Changelog />}
       {page === "about" && <About />}
       {page === "settings" && (
         <div className="Settings">
