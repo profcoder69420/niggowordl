@@ -126,7 +126,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
     setGameNumber((x) => x + 1);
   };
 
-  const onKey = useCallback((key: string) => {
+  const onKey: (key: string) => void = useCallback((key: string) => {
     if (gameState !== GameState.Playing) {
       if (key === "Enter") {
         startNextGame();
