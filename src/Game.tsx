@@ -110,7 +110,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
     }
   }, [wordLength, gameNumber, currentSeedParams]);
   const tableRef = useRef<HTMLTableElement>(null);
-  const startNextGame = () => {
+  const startNextGame = useCallback(() => {
     if (challenge) {
       // Clear the URL parameters:
       window.history.replaceState({}, document.title, window.location.pathname);
@@ -124,7 +124,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
     setCurrentGuess("");
     setGameState(GameState.Playing);
     setGameNumber((x) => x + 1);
-  };
+  }, [challenge, wordLength, target, hint, guesses, currentGuess, gameState, gameNumber]);
 
   const onKey: (key: string) => void = useCallback((key: string) => {
     if (gameState !== GameState.Playing) {
@@ -183,7 +183,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
         speak(describeClue(clue(currentGuess, target)));
       }
     }
-  }, [currentGuess, gameState, challenge, currentwinStreak, difficulty, guesses, maxGuesses, startNextGame, target, updateWinStreak, wordLength]);
+  }, [currentGuess, gameState, challenge, currentwinStreak, difficulty, guesses, maxGuesses, target, updateWinStreak, wordLength]);
   // Line 186:6:  React Hook useCallback has missing dependencies: 'challenge', 'currentwinStreak', 'difficulty', 'guesses', 'maxGuesses', 'startNextGame', 'target', 'updateWinStreak', and 'wordLength'. Either include them or remove the dependency array. If 'updateWinStreak' changes too often, find the parent component that defines it and wrap that definition in useCallback  react-hooks/exhaustive-deps
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
