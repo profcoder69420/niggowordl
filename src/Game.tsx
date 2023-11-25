@@ -183,8 +183,8 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
         speak(describeClue(clue(currentGuess, target)));
       }
     }
-  }, [currentGuess, gameState, noKeyGrab]);
-
+  }, [currentGuess, gameState, noKeyGrab, challenge, currentWinStreak, difficulty, guesses, maxGuesses, startNextGame, target, updateWinStreak, wordLength]);
+  // Line 186:6:  React Hook useCallback has missing dependencies: 'challenge', 'currentwinStreak', 'difficulty', 'guesses', 'maxGuesses', 'startNextGame', 'target', 'updateWinStreak', and 'wordLength'. Either include them or remove the dependency array. If 'updateWinStreak' changes too often, find the parent component that defines it and wrap that definition in useCallback  react-hooks/exhaustive-deps
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (!e.ctrlKey && !e.metaKey) {
