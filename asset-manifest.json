@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/niggowordl/static/css/main.5e38cfc5.css",
-    "main.js": "/niggowordl/static/js/main.ac24b334.js",
+    "main.css": "/niggowordl/static/css/main.f85bf1e4.css",
+    "main.js": "/niggowordl/static/js/main.4b467025.js",
     "index.html": "/niggowordl/index.html",
-    "main.5e38cfc5.css.map": "/niggowordl/static/css/main.5e38cfc5.css.map",
-    "main.ac24b334.js.map": "/niggowordl/static/js/main.ac24b334.js.map"
+    "main.f85bf1e4.css.map": "/niggowordl/static/css/main.f85bf1e4.css.map",
+    "main.4b467025.js.map": "/niggowordl/static/js/main.4b467025.js.map"
   },
   "entrypoints": [
-    "static/css/main.5e38cfc5.css",
-    "static/js/main.ac24b334.js"
+    "static/css/main.f85bf1e4.css",
+    "static/js/main.4b467025.js"
   ]
 }
