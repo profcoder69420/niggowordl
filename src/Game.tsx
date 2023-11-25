@@ -312,7 +312,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
           <p>Game #{gameNumber} (session)</p>
           <p>Win streak: {currentwinStreak}</p>
           <p><a href="https://github.com/profcoder69420/niggowordl">{gameName} mod v1.0.4</a> | forked from <a href="https://hellowordl.net">hello wordl</a> by <a href="https://twitter.com/chordbug">Lynn / @chordbug</a></p>
-          <p>made by <a href="https://github.com/profcoder69420">profcoder69420 on GitHub</a></p>
+          <p>made by <a href="https://github.com/profcoder69420">profcoder69420 on GitHub</a> and <a href="https://github.com/AnhNguyenlost13">AnhNguyenLost13 on GitHub</a></p>
       </div>  
     </div>
   );
