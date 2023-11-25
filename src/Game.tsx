@@ -99,7 +99,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
   );
   const currentSeedParams = useCallback(() => {
     return `?seed=${seed}&length=${wordLength}&game=${gameNumber}`;
-  }, [seed, wordLength, gameNumber]);
+  }, [wordLength, gameNumber]);
   useEffect(() => {
     if (seed) {
       window.history.replaceState(
