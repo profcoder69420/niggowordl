@@ -183,7 +183,7 @@ function Game({ winStreak: initialWinStreak, updateWinStreak, maxGuesses, hidden
         speak(describeClue(clue(currentGuess, target)));
       }
     }
-  }, [currentGuess, gameState, noKeyGrab, onKey]);
+  }, [currentGuess, gameState, noKeyGrab]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
